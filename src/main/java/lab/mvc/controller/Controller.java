@@ -10,7 +10,6 @@ import lab.mvc.model.Person;
 
 import java.io.IOException;
 
-// هذا السطر (Annotation) يغنينا عن كتابة web.xml
 @WebServlet("/Controller")
 public class Controller extends HttpServlet {
 
@@ -18,29 +17,21 @@ public class Controller extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // 1. قراءة البيانات من الـ Form
-        // ملاحظة: تأكد أن أسماء الحقول في الـ HTML تطابق هذه الأسماء
         String firstName = request.getParameter("firstName");
         String lastName = request.getParameter("lastName");
-        String birthDay = request.getParameter("birthDay"); // أو birthDate
+        String birthDay = request.getParameter("birthDay");
         String sex = request.getParameter("sex");
 
-        // 2. إنشاء كائن Person باستخدام المُنشئ
         Person person = new Person(firstName, lastName, birthDay, sex);
-
-        // 3. إضافة الكائن إلى الـ Request لتمريره للـ JSP
         request.setAttribute("personBean", person);
-        String targetJSP = "/young.jsp"; // الافتراضي
-        if (birthDay != null && birthDay.compareTo("2006-01-01") < 0) {
-            targetJSP = "/old.jsp";
+
+        String targetPage = "/old.jsp";
+
+        if (birthDay != null && birthDay.compareTo("2006-01-01") > 0) {
+            targetPage = "/young.jsp";
         }
 
-
-        // 4. تمرير الطلب (Forward) إلى صفحة JSP
-        // يمكنك استخدام include أو forward. التمرين يطلب include
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(targetJSP);
-
-        // Note: في العادة نستخدم forward، لكن التمرين يطلب include:
-        dispatcher.include(request, response);
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(targetPage);
+        dispatcher.forward(request, response);
     }
 }

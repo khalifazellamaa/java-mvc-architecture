@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: khali
-  Date: 26/10/2026
-  Time: 3:46 PM
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html; charset=UTF-8" %>
 <!DOCTYPE html>
 <html lang="fr">
@@ -15,7 +8,6 @@
 <body>
 <h2>Bienvenue (Page Adulte)</h2>
 
-<%-- استدعاء الكائن الذي تم إنشاؤه في الـ Servlet باستخدام type --%>
 <jsp:useBean id="personBean" type="lab.mvc.model.Person" scope="request" />
 
 <table border="1" cellpadding="10">
